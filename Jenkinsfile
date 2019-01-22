@@ -18,7 +18,7 @@ spec:
     tty: true
 """
 
-podTemplate(name: 'transaction-service-build', label: label, yaml: build_pod_template) {
+podTemplate(name: 'app-infrastructure-build', label: label, yaml: build_pod_template) {
   node(label) {
     git git_repository
 
