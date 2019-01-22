@@ -1,0 +1,10 @@
+{
+	"auths": {
+		"https://index.docker.io/v1/": {
+			"auth": "BASE64_AUTH"
+		}
+	},
+	"HttpHeaders": {
+		"User-Agent": "Docker-Client/18.09.1 (linux)"
+	}
+}

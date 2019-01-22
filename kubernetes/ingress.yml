@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: banking-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: banking-rabbit.apps.ones-training.co.uk
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: message-bus
+          servicePort: management
+  - host: banking-demo.apps.onse-training.co.uk
+    http:
+      paths:
+        - path: /cashier/
+          backend:
+            serviceName: cashier-service
+            servicePort: http
+        - path: /customers/
+          backend:
+            serviceName: customer-service
+            servicePort: http
+        - path: /accounts/
+          backend:
+            serviceName: account-service
+            servicePort: http
+        - path: /balance/
+          backend:
+            serviceName: balance-service
+            servicePort: http
