@@ -1,10 +1,10 @@
-def git_repository = 'https://github.com/ONSdigital/onse-banking-app-infrastructure'
-def namespace = 'aklearning'
+def github_id = 'ONSdigital'
 
+def git_repository = "https://github.com/${github_id}/onse-banking-app-infrastructure"
+def namespace = github_id
+def rabbitmq_host = "${namespace}-rabbit.apps.onse-training.co.uk"
+def app_host = "${namespace}-app.apps.onse-training.co.uk"
 def kubectl_image = 'aklearning/onse-eks-kubectl-deployer:0.0.1'
-
-def git_commit = ''
-
 def label = "build-${UUID.randomUUID().toString()}"
 def build_pod_template = """
 kind: Pod
@@ -35,6 +35,10 @@ podTemplate(name: 'app-infrastructure-build', label: label, yaml: build_pod_temp
               --server=$KUBERNETES_SERVER \
               --certificate-authority=$KUBERNETES_CA
           '''
+
+          sh "yq.v2 w -i kubernetes/ingress.yml 'spec.rules[0].host' ${rabbitmq_host}"
+          sh "yq.v2 w -i kubernetes/ingress.yml 'spec.rules[1].host' ${app_host}"
+
           sh "kubectl create namespace ${namespace} || true"
           sh "kubectl apply -n ${namespace} -f kubernetes/"
         }
