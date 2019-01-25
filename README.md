@@ -13,27 +13,13 @@ used by the microservices. This includes:
 
 ## Deploying
 
-### 1. Set DockerHub Credentials
-
-Create Docker config file:
-
-`python create_docker_config.py`
-
-Create a Kubernetes secret:
-
-`kubectl -n NAMESPACE create secret generic regcred --from-file=dockerconfigjson=docker-config.json`
-
-NOTE: If you want to delete your Kubernetes secret, then run:
-
-`kubectl -n NAMESPACE delete secret regcred`
-
-### 2. Update the hosts in the [ingress.yml](./kubernetes/ingress.yml)
+### 1. Update the hosts in the [ingress.yml](./kubernetes/ingress.yml)
 
 For the app, use `GITHUSER-banking-app.apps.onse-training.co.uk`.
 
 For the RabbitMQ dashboard use `GITHUSER-banking-rabbit.apps.onse-training.co.uk`.
 
-### 3. Deploy
+### 2. Deploy
 
 `kubectl -n NAMESPACE apply -f kubernetes/`
 
