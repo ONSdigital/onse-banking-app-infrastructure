@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-  - host: banking-rabbit.apps.ones-training.co.uk
+  - host: banking-rabbit.apps.onse-training.co.uk
     http:
       paths:
       - path: /
